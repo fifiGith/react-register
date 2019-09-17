@@ -20,8 +20,6 @@ export default class Register extends Component {
     confirmedPin: ""
   };
 
-  error = "";
-
   handleButton = page => {
     if (page === 0) {
       let number = new RegExp(/0[0-9]{9}/);

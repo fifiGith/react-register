@@ -1,5 +1,4 @@
 import React from "react";
-import "./Otp.css";
 
 const Otp = props => {
   const inputs = [];
