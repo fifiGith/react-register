@@ -1,7 +1,6 @@
 import React from "react";
-import "./Otp.css";
 
-const Otp = props => {
+const Pin = props => {
   const inputs = [];
   for (let i = 0; i < props.length; i++) {
     inputs.push(
@@ -10,7 +9,7 @@ const Otp = props => {
         className="mini"
         key={i}
         type="text"
-        name="userOtp"
+        name="pin"
         placeholder="0"
         maxLength="1"
         onChange={props.handleOtp}
@@ -20,12 +19,13 @@ const Otp = props => {
   return (
     <React.Fragment>
       <div className="header">
-        <h1>ยืนยัน OTP</h1>
-        <div>ของหมายเลข {props.number}</div>
+        <h1>ตั้ง PIN</h1>
+        <div>
+          {props.isConfirm ? "ระบุอีกครั้ง" : "เพื่อใช้ยืนยันตัวในครั้งต่อไป"}
+        </div>
       </div>
       <div className="main">
         <div className="form">
-          <div>กรุณาระบุ OTP</div>
           <div className="inputs">{inputs}</div>
         </div>
       </div>
@@ -34,4 +34,4 @@ const Otp = props => {
   );
 };
 
-export default Otp;
+export default Pin;

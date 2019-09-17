@@ -1,0 +1,9 @@
+#user-header {
+    margin-bottom: 1em
+}
+
+.user-content {
+    margin-left: 25%;
+    padding-left: 1em;
+    border-left: 2px solid rgba(187,187,187,1)
+}

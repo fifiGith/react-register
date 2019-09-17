@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import Name from "./Name";
 import Otp from "./Otp";
+import Pin from "./Pin";
+import User from "./User";
 
 import "./Register.css";
 
@@ -12,7 +14,10 @@ export default class Register extends Component {
     number: null,
     userOtp: "",
     otp: "102938",
-    error: null
+    length: 6,
+    error: null,
+    pin: "",
+    confirmedPin: ""
   };
 
   error = "";
@@ -31,12 +36,27 @@ export default class Register extends Component {
         });
       }
     } else if (page === 1) {
-      let userOtp = this.state.userOtp.join("").toString();
+      let userOtp = this.state.userOtp.join("");
       if (userOtp === this.state.otp) {
         return this.setState({ page: page + 1, error: "" });
       }
       return this.setState({
         error: "*กรุณาใส่หมายเลข OTP ให้ถูกต้อง"
+      });
+    } else if (page === 2) {
+      let pinReg = new RegExp(/[0-9]{6}/);
+      if (this.state.pin.length === 6 && pinReg.test(this.state.pin.join(""))) {
+        return this.setState({ page: page + 1, error: "" });
+      }
+      return this.setState({
+        error: "*กรุณาใส่หมายเลข PIN ให้ถูกต้อง"
+      });
+    } else if (page === 3) {
+      if (this.state.pin.join("") === this.state.confirmedPin.join("")) {
+        return this.setState({ page: page + 1, error: "" });
+      }
+      return this.setState({
+        error: "*กรุณาใส่หมายเลข PIN ให้ถูกต้อง"
       });
     }
   };
@@ -45,16 +65,22 @@ export default class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  setCharAt = (str, index, chr) => {
-    if (index > str.length - 1) return str;
-    console.log(str, index, chr);
-    return str.substr(0, index) + chr + str.substr(index + 1);
-  };
-
   handleOtp = e => {
     let userOtp = [...this.state.userOtp];
-    userOtp[e.target.id] = e.target.value.toString();
+    userOtp[e.target.id] = e.target.value;
     return this.setState({ userOtp: userOtp });
+  };
+
+  handlePin = e => {
+    let pin = [...this.state.pin];
+    pin[e.target.id] = e.target.value;
+    return this.setState({ pin: pin });
+  };
+
+  handleConfirmedPin = e => {
+    let confirmedPin = [...this.state.confirmedPin];
+    confirmedPin[e.target.id] = e.target.value;
+    return this.setState({ confirmedPin: confirmedPin });
   };
 
   render() {
@@ -69,24 +95,57 @@ export default class Register extends Component {
           {this.state.page === 1 ? (
             <Otp
               userOtp={this.state.userOtp}
-              otp={this.state.otp}
-              number={this.state.number}
+              length={this.state.length}
               error={this.state.error}
               handleOtp={this.handleOtp}
             />
           ) : (
             ""
           )}
-          <div className="footer">
-            <div>
-              <div
-                className="button"
-                onClick={() => this.handleButton(this.state.page)}
-              >
-                ต่อไป
+          {this.state.page === 2 ? (
+            <Pin
+              pin={this.state.pin}
+              length={this.state.length}
+              error={this.state.error}
+              handleOtp={this.handlePin}
+            />
+          ) : (
+            ""
+          )}
+          {this.state.page === 3 ? (
+            <Pin
+              pin={this.state.confirmedPin}
+              length={this.state.length}
+              isConfirm={true}
+              error={this.state.error}
+              handleOtp={this.handleConfirmedPin}
+            />
+          ) : (
+            ""
+          )}
+          {this.state.page === 4 ? (
+            <User
+              name={this.state.name}
+              number={this.state.number}
+              pin={this.state.pin}
+            />
+          ) : (
+            ""
+          )}
+          {this.state.page !== 4 ? (
+            <div className="footer">
+              <div>
+                <div
+                  className="button"
+                  onClick={() => this.handleButton(this.state.page)}
+                >
+                  ต่อไป
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );
