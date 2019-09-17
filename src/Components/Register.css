@@ -45,9 +45,8 @@
     height: 2em;
     padding: 0.5em;
     margin-top: 0.25em;
+    border: 1px solid rgba(187,187,187,1);
 }
-
-
 
 #number {
     margin-top: 1.8em;
@@ -76,4 +75,9 @@
 
 .button:hover {
     background-color: rgb(252, 29, 159);
+}
+
+.inputs {
+    display: flex;
+    justify-content: space-between;
 }

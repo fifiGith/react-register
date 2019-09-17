@@ -4,14 +4,13 @@ import Name from "./Name";
 import Otp from "./Otp";
 
 import "./Register.css";
-import { switchCase } from "@babel/types";
 
 export default class Register extends Component {
   state = {
     page: 0,
     name: null,
     number: null,
-    userOtp: null,
+    userOtp: "",
     otp: "102938",
     error: null
   };
@@ -32,6 +31,13 @@ export default class Register extends Component {
         });
       }
     } else if (page === 1) {
+      let userOtp = this.state.userOtp.join("").toString();
+      if (userOtp === this.state.otp) {
+        return this.setState({ page: page + 1, error: "" });
+      }
+      return this.setState({
+        error: "*กรุณาใส่หมายเลข OTP ให้ถูกต้อง"
+      });
     }
   };
 
@@ -39,11 +45,16 @@ export default class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  setCharAt = (str, index, chr) => {
+    if (index > str.length - 1) return str;
+    console.log(str, index, chr);
+    return str.substr(0, index) + chr + str.substr(index + 1);
+  };
+
   handleOtp = e => {
-    this.setState(
-      { [e.target.name[e.target.key]]: e.target.value },
-      console.log(this.state.userOtp)
-    );
+    let userOtp = [...this.state.userOtp];
+    userOtp[e.target.id] = e.target.value.toString();
+    return this.setState({ userOtp: userOtp });
   };
 
   render() {
@@ -61,6 +72,7 @@ export default class Register extends Component {
               otp={this.state.otp}
               number={this.state.number}
               error={this.state.error}
+              handleOtp={this.handleOtp}
             />
           ) : (
             ""

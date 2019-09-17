@@ -1,16 +1,19 @@
 import React from "react";
+import "./Otp.css";
 
 const Otp = props => {
-  var inputs = [];
-  console.log(props.otp);
+  const inputs = [];
   for (let i = 0; i < props.otp.length; i++) {
     inputs.push(
       <input
-        id="otp"
-        type="text"
-        name="userOTP"
+        id={i}
+        className="mini"
+        key={i}
+        type="number"
+        name="userOtp"
         placeholder="0"
-        onChange={props.handleName}
+        maxLength="1"
+        onChange={props.handleOtp}
       />
     );
   }
@@ -23,7 +26,7 @@ const Otp = props => {
       <div className="main">
         <div className="form">
           <div>กรุณาระบุ OTP</div>
-          {inputs}
+          <div className="inputs">{inputs}</div>
         </div>
       </div>
       <div className="error">{props.error}</div>
