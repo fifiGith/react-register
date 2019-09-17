@@ -1,3 +1,8 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,9 +10,27 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#root {
+  height: 100%;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+}
+
+input {
+  box-shadow: none;
+  font-family: "Kanit", sans-serif;
+}
+
+input:-internal-autofill-selected {
+  background-color: rgb(232, 240, 254) !important;
+  background-image: none !important;
+  color: rgb(0, 0, 0) !important;
 }
